@@ -9,28 +9,17 @@
 
 window#waybar {
     border-bottom: 3px solid #8f9aa4;
-    background-color: #f0f1f4;
+    background-color: #f1f1f4;
     color: #2a2b33;
     transition-property: background-color;
     transition-duration: .5s;
 }
-
 window#waybar.hidden {
     opacity: 0.3;
 }
-
-/*
-window#waybar.empty {
-}
-window#waybar.solo {
-}
-*/
-
-window#waybar.termite {
-}
-
-window#waybar.chromium {
-    border: none;
+#window,
+#workspaces {
+    margin: 0 4px;
 }
 
 button {
@@ -41,133 +30,59 @@ button {
     border-radius: 0;
 }
 
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-button:hover {
-    background: inherit;
-    box-shadow: inset 0 -3px #ffffff;
+label.module {
+    padding: 0 10px;
+    color: #2a2b33;
 }
-
-/* you can set a style on hover for any module like this */
-#pulseaudio:hover {
+label:focus {
+    font-weight: bold;
 }
 
 #workspaces button {
     padding: 0 5px;
     color: #2a2b33;
 }
-
 #workspaces button:hover {
     background: #8f9aa4;
 }
-
 #workspaces button.focused {
     box-shadow: inset 0 -3px #ffffff;
 }
-
-#workspaces button.urgent {
-}
-
-#mode {
-    box-shadow: inset 0 -3px #ffffff;
-}
-
-#clock,
-#battery,
-#load,
-#cpu,
-#memory,
-#disk,
-#temperature,
-#backlight_cool,
-#backlight_warm,
-#network,
-#pulseaudio,
-#wireplumber,
-#custom-media,
-#custom-rotation,
-#tray,
-#mode,
-#idle_inhibitor,
-#scratchpad,
-#power-profiles-daemon,
-#mpd {
-    padding: 0 10px;
-    color: #2a2b33;
-}
-
-#window,
-#workspaces {
-    margin: 0 4px;
-}
-
 /* If workspaces is the leftmost module, omit left margin */
 .modules-left > widget:first-child > #workspaces {
     margin-left: 0;
 }
-
 /* If workspaces is the rightmost module, omit right margin */
 .modules-right > widget:last-child > #workspaces {
     margin-right: 0;
 }
 
-#clock {
-}
 
-#battery {
-}
-
-#battery.charging, #battery.plugged {
-    color: #2a2b33;
-}
-
+/* Using steps() instead of linear as a timing function to limit cpu usage */
 @keyframes blink {
     to {
         color: #ff0000;
     }
 }
-
-/* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
+    /* TODO: Slow down animation */
     color: #ffffff;
     animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: steps(12);
+    animation-duration: 5s;
+    animation-timing-function: steps(2);
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
-
 #power-profiles-daemon {
     padding-right: 15px;
 }
-
-#power-profiles-daemon.performance {
-    color: #2a2b33;
-}
-
-#power-profiles-daemon.balanced {
-    color: #2a2b33;
-}
-
-#power-profiles-daemon.power-saver {
-}
-
-label:focus {
-    font-weight: bold;
-}
-
 #pulseaudio.muted {
     color: #2a5c45;
-}
-
-#custom-media {
-    color: #2a5c45;
-    min-width: 100px;
 }
 
 #tray > .passive {
     -gtk-icon-effect: dim;
 }
-
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
 }
@@ -176,26 +91,19 @@ label:focus {
     color: #2d3436;
 }
 
-#language {
-    background: #00b093;
-    color: #740864;
-    padding: 0 5px;
-    margin: 0 5px;
-    min-width: 16px;
-}
-
 #keyboard-state {
     background: #97e1ad;
     padding: 0 0px;
     margin: 0 5px;
     min-width: 16px;
 }
-
 #keyboard-state > label {
     padding: 0 5px;
 }
-
 #keyboard-state > label.locked {
     background: #8f9aa4;
 }
 
+#custom-rotation, #custom-refresh {
+    font-size: 22px;
+}
