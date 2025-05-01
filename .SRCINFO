@@ -1,0 +1,14 @@
+pkgbase = pinenote-as-hyprland-theme-git
+	pkgdesc = Pinenote Theme for Hyprland + Waybar
+	pkgver = 0.1.r5.g0d77824
+    pkgrel = 1
+	url = https://github.com/atom-skillz/pinenote-dotfiles
+	arch = any
+	license = GPLv3
+	makedepends = git
+	depends = sddm
+	source = git+https://github.com/atom-skillz/pinenote-dotfiles.git
+    sha256sums = SKIP
+
+pkgname = pinenote-as-hyprland-theme-git
+
