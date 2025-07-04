@@ -6,43 +6,59 @@
     // "width": 1280, // Waybar width
     "spacing": 2, // Gaps between modules (4px)
     "reload_style_on_change": true,
+    "passthrough": false,
     // Choose the order of the modules
     "modules-left": [
-        "hyprland/workspaces",
-        "hyprland/submap",
+        "sway/mode",
+        "sway/workspaces",
         "custom/media"
     ],
     "modules-center": [
-        "hyprland/window"
+        "sway/window"
     ],
     "modules-right": [
         "custom/weather",
-        "pulseaudio",
+        //"pulseaudio",
+        //"network",
+        //"power-profiles-daemon",
         "load",
         "temperature",
+        "custom/backlight-cool-down",
         "backlight#cool",
+        "custom/backlight-cool-up",
+        "custom/backlight-warm-down",
         "backlight#warm",
+        "custom/backlight-warm-up",
         "battery",
-        "battery#bat2",
-        "custom/rotation",
+        "custom/vwkbd",
+        "custom/rotation0",
+        "custom/rotation1",
         "custom/refresh",
         "clock",
-        "tray"
+        "tray",
+        "custom/sway-kill"
     ],
-    // Modules configuration
-    "hyprland/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "warp-on-scroll": false,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "default": "",
-            "urgent": "",
-            "focused": ""
-        }
+
+    //
+    // Sway modules config
+    //
+    "sway/mode": {
+        "format": "{}",
+        "max-length": 50
     },
+    "sway/workspaces": {
+        "format": "{name}"
+    },
+    "sway/window": {
+        "icon": true
+    },
+
+
+    //
+    // Other modules
+    //
     "keyboard-state": {
-        "numlock": false,
+        "numlock": true,
         "capslock": true,
         "format": "{name} {icon}",
         "format-icons": {
@@ -50,11 +66,8 @@
             "unlocked": ""
         }
     },
-    "hyprland/submap": {
-        "format": "<span style=\"italic\">{}</span>"
-    },
     "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon} {elapsedTime:%M:%S}/{totalTime:%M:%S} ",
         "format-disconnected": "Disconnected ",
         "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
         "unknown-tag": "N/A",
@@ -102,19 +115,18 @@
     "load": {
         "interval": 15,
         "tooltip-format": "Load: {load1} {load5} {load15}",
-        "format": " {load1}"
+        "format": "{load1} "
     },
     "memory": {
-        "format": "{used:0.1f}G + {swapUsed:0.1f}G "
+        "format": "{used:0.1f}G "
     },
     "temperature": {
-        // "thermal-zone": 2,
+        "thermal-zone": 2,
         "tooltip-format": "Current temperature: {temperatureC}°C",
         "hwmon-path": "/sys/class/hwmon/hwmon5/temp1_input",
         "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+        "format-icons": ["", "", ""]
     },
     "backlight#warm": {
         "device": "backlight_warm",
@@ -132,21 +144,16 @@
     },
     "battery": {
         "states": {
-            // "good": 95,
+            "good": 95,
             "warning": 30,
-            "critical": 15
+            "critical": 20
         },
         "format": "{capacity}% {icon}",
         "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
+        "format-charging": "{capacity}% 󰂄",
         "format-plugged": "{capacity}% ",
         "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
         "format-icons": ["", "", "", "", ""]
-    },
-    "battery#bat2": {
-        "bat": "BAT2"
     },
     "power-profiles-daemon": {
       "format": "{profile} {icon}",
@@ -162,10 +169,10 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
+        "format-ethernet": "{ipaddr}/{cidr}",
+        "tooltip-format": "{ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "Disconnected",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
@@ -198,17 +205,44 @@
         "escape": true,
         "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
     },
+    "custom/vwkbd": {
+        "format": "󰌌",
+        "on-click": "toggle-kbd.sh"
+    },
+    "custom/backlight-warm-down": {
+        "format": "",
+        "on-click": "brightnessctl -q -d backlight_warm set 10%-"
+    },
+    "custom/backlight-warm-up": {
+        "format": "",
+        "on-click": "brightnessctl -q -d backlight_warm set 10%+"
+    },
+    "custom/backlight-cool-down": {
+        "format": "",
+        "on-click": "brightnessctl -q -d backlight_cool set 10%-"
+    },
+    "custom/backlight-cool-up": {
+        "format": "",
+        "on-click": "brightnessctl -q -d backlight_cool set 10%+"
+    },
+    "custom/rotation0": {
+        "format": "󰆠",
+        "on-click": "rotate-monitor.sh normal"
+    },
+    "custom/rotation1": {
+        "format": "󰆡",
+        "on-click": "rotate-monitor.sh left-up"
+    },
+    "custom/sway-kill": {
+        "format": "X",
+        "on-click": "swaymsg kill"
+    },
     "custom/weather": {
         "format": "{}°",
         "tooltip": true,
         "interval": 3600,
-        "exec": "wttrbar --location Zapopan --nerd",
+        "exec": "wttrbar --location Zapopan2 --nerd",
         "return-type": "json"
-    },
-    "custom/rotation": {
-        "format": "",
-        "on-click": "rotate-monitor.sh",
-        "escape": true
     },
     "custom/refresh": {
         "format": "",

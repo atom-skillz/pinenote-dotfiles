@@ -2,13 +2,21 @@
 
 _reponame=pinenote-dotfiles
 pkgname=pinenote-as-hyprland-theme-git
-pkgver=0.1.r4.g2e0db02
+pkgver=0.1.r6.g77304a8
 pkgrel=1
 pkgdesc="Archlinux Theme for SDDM"
 arch=('any')
 url="https://github.com/atom-skillz/$_reponame"
 license=('GPLv3')
-depends=('hyprland' 'waybar')
+depends=(
+    'sway' 'swaybg' 'swayidle'
+    'waybar'
+    'foot'
+    'wvkbd'
+    'iio-sensor-proxy' # Currently not working
+    'neovim'
+    'git'
+)
 makedepends=('git')
 source=("git+https://github.com/atom-skillz/$_reponame.git")
 sha256sums=('SKIP')
@@ -19,8 +27,8 @@ pkgver() {
 }
 
 package() {
-  install -Dm644 $_reponame/.config/hypr/*.conf -t "$pkgdir/usr/share/hypr/themes/pinenote-as/hypr/"
-  install -Dm644 $_reponame/.config/kitty/*.conf -t "$pkgdir/usr/share/hypr/themes/pinenote-as/kitty/"
+  install -Dm644 $_reponame/.config/sway/*.conf -t "$pkgdir/usr/share/sway/themes/pinenote-as/sway/"
+  install -Dm644 $_reponame/.config/foot/*.conf -t "$pkgdir/usr/share/foot/themes/pinenote-as/foot/"
   install -Dm644 $_reponame/.config/waybar/*.{jsonc,css} -t "$pkgdir/usr/share/hypr/themes/pinenote-as/waybar/"
   install -Dm644 $_reponame/.bin/* -t "$pkgdir/usr/share/hypr/themes/pinenote-as/scripts/"
 }
