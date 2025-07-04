@@ -2,7 +2,7 @@
 
 _reponame=pinenote-dotfiles
 pkgname=pinenote-as-hyprland-theme-git
-pkgver=0.1.r6.g77304a8
+pkgver=0.1.r7.g8825043
 pkgrel=1
 pkgdesc="Archlinux Theme for SDDM"
 arch=('any')
@@ -27,8 +27,8 @@ pkgver() {
 }
 
 package() {
-  install -Dm644 $_reponame/.config/sway/*.conf -t "$pkgdir/usr/share/sway/themes/pinenote-as/sway/"
-  install -Dm644 $_reponame/.config/foot/*.conf -t "$pkgdir/usr/share/foot/themes/pinenote-as/foot/"
-  install -Dm644 $_reponame/.config/waybar/*.{jsonc,css} -t "$pkgdir/usr/share/hypr/themes/pinenote-as/waybar/"
-  install -Dm644 $_reponame/.bin/* -t "$pkgdir/usr/share/hypr/themes/pinenote-as/scripts/"
+  install -Dm644 $_reponame/.config/sway/* -t "$pkgdir/usr/share/sway/themes/pinenote-as/sway/"
+  install -Dm644 $_reponame/.config/foot/* -t "$pkgdir/usr/share/sway/themes/pinenote-as/foot/"
+  install -Dm644 $_reponame/.config/waybar/* -t "$pkgdir/usr/share/sway/themes/pinenote-as/waybar/"
+  install -Dm644 $_reponame/.bin/* -t "$pkgdir/usr/share/sway/themes/pinenote-as/scripts/"
 }
